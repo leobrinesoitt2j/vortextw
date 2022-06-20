@@ -3,6 +3,8 @@ package cn.xsshome.taip.speech;
 import java.util.HashMap;
 
 
+
+
 import cn.xsshome.taip.base.BaseClient;
 import cn.xsshome.taip.http.HttpUtil;
 import cn.xsshome.taip.sign.TencentAISignSort;
@@ -204,5 +206,83 @@ public class TAipSpeech extends BaseClient{
     public String asrWx(String filePath,int format,int rate,int bits,int seq,int len,int end,int cont_res) throws Exception{
     	byte[] audio = FileUtil.readFileByBytes(filePath);
         return asrWx(audio, format, rate, bits, seq, len, end, cont_res);
+    }
+    /**
+     * 语音合成（AI Lab） 	非默认值
+     * 将文字转换为语音，返回文字的语音数据。
+     * @param text 待合成文本
+     * @param speaker 语音发音人编码
+     * @param format 合成语音格式编码
+     * @param volume 合成语音音量 取值范围[-10, 10]，如-10表示音量相对默认值小10dB，0表示默认音量，10表示音量相对默认值大10dB
+     * @param speed 合成语音语速，默认100
+     * @param aht 合成语音降低/升高半音个数，即改变音高，默认0
+     * @param apc 控制频谱翘曲的程度，改变说话人的音色，默认58
+     * @return String
+     * @throws Exception
+     */
+    public String TtsSynthesis(String text,int speaker,int format,int volume,int speed,int aht,int apc) throws Exception{
+    	String result ="";
+        HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		params.put("text", text);
+		params.put("speaker",String.valueOf(speaker));
+		params.put("format",String.valueOf(format));
+		params.put("volume",String.valueOf(volume));
+		params.put("speed",String.valueOf(speed));
+		params.put("aht", String.valueOf(aht));
+		params.put("apc", String.valueOf(apc));
+        String sign = TencentAISignSort.getSignature(params,app_key);
+		params.put("sign",sign);
+        result = HttpUtil.post(SpeechConsts.SPEECH_TTS_TTS,TencentAISignSort.getParams(params));
+        return result;
+    }
+    /**
+     * 语音合成（AI Lab） 默认值
+     * 将文字转换为语音，返回文字的语音数据。
+     * @param text 待合成文本
+     * @param speaker 语音发音人编码
+     * @param format 合成语音格式编码
+     * @return String
+     * @throws Exception
+     */
+    public String TtsSynthesis(String text,int speaker,int format) throws Exception{
+    	return TtsSynthesis(text, speaker, format, 0, 100, 0, 58);
+    }
+    /**
+     * 语音合成（优图） 	
+     * 将文字转换为语音，返回文字的语音数据。
+     * @param text 待合成语音文本
+     * @param model_type 发音模型
+     * @param speed 语速
+     * @return String
+     * @throws Exception
+     */
+    public String TtaSynthesis(String text,int model_type,int speed) throws Exception{
+    	String result ="";
+        HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		params.put("text", text);
+		params.put("speed", Integer.toString(speed));
+		params.put("model_type", Integer.toString(model_type));
+        String sign = TencentAISignSort.getSignature(params,app_key);
+		params.put("sign",sign);
+        result = HttpUtil.post(SpeechConsts.SPEECH_TTS_TTA,TencentAISignSort.getParams(params));
+        return result;
+    }
+    /**
+     * 语音合成（优图） 	
+     * 将文字转换为语音，返回文字的语音数据。
+     * @param text 待合成语音文本
+     * @return String
+     * @throws Exception
+     */
+    public String TtaSynthesis(String text) throws Exception{
+    	return TtaSynthesis(text, 0, 0);
     }
 }

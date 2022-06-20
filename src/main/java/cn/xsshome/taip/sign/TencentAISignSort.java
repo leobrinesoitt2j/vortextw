@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import cn.xsshome.taip.error.ErrorTAip;
 import cn.xsshome.taip.util.TransConstant;
 /**
  * 签名生成算法方法类
@@ -53,181 +54,76 @@ public class TencentAISignSort {
 	 * @return 签名
 	 * @throws Exception 
 	 */
-	public static String getSignature4TransText(HashMap<String,String> params) throws Exception {
-	        // 先将参数以其参数名的字典序升序进行排序
-	        Map<String, String> sortedParams = new TreeMap<>(params);
-	        Set<Map.Entry<String, String>> entrys = sortedParams.entrySet();
-	        // 遍历排序后的字典，将所有参数按"key=value"格式拼接在一起
-	        StringBuilder baseString = new StringBuilder();
-        for (Map.Entry<String, String> param : entrys) {
-        	if("source".equals(param.getKey().trim())&&"en".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(targetParam.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.EN_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("en源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        		}
-	        	}
-        	if("source".equals(param.getKey().trim())&&"zh".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(targetParam.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.ZH_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("zh源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"fr".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(targetParam.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.FR_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("fr源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"es".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(targetParam.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.ES_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("es源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"it".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.IT_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("it源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"de".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.DE_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("de源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"tr".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.TR_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("tr源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"ru".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.RU_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("ru源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"pt".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.PT_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("pt源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"vi".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.VI_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("vi源语言不支持目标语言:"+param.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"id".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.ID_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("id源语言不支持目标语言:"+param.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"ms".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.MS_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("ms源语言不支持目标语言:"+param.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"th".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.TH_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("th源语言不支持目标语言:"+param.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"jp".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.JP_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("jp源语言不支持目标语言:"+param.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-        	if("source".equals(param.getKey().trim())&&"kr".equals(param.getValue().trim())){
-        		for (Map.Entry<String, String> targetParam : entrys) {
-        		if("target".equals(param.getKey().trim())){
-        			if(!Arrays.asList(TransConstant.KR_TARGET).contains(targetParam.getValue().trim())){
-        				throw new Exception("kr源语言不支持目标语言:"+targetParam.getValue());
-	        			}
-	        		}
-	        	}
-	        }
-			if ("source".equals(param.getKey().trim())&& "auto".equals(param.getValue().trim())) {
-				for (Map.Entry<String, String> targetParam : entrys) {
-					if ("target".equals(targetParam.getKey().trim())) {
-						if (!Arrays.asList(TransConstant.AUTO_TARGET).contains(targetParam.getValue().trim())) {
-							throw new Exception("auto源语言不支持目标语言:"+ targetParam.getValue());
-						}
-					}
-				}
+	public static String getSignature4TransText(HashMap<String,String> params,String app_key) throws Exception {
+        // 先将参数以其参数名的字典序升序进行排序
+        Map<String, String> sortedParams = new TreeMap<>(params);
+        Set<Map.Entry<String, String>> entrys = sortedParams.entrySet();
+        String source = params.get("source");
+        String target = params.get("target");
+        // 遍历排序后的字典，将所有参数按"key=value"格式拼接在一起
+        StringBuilder baseString = new StringBuilder();
+        String sign ="";
+		if (source.equals("en")&& !Arrays.asList(TransConstant.EN_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("en")&& !Arrays.asList(TransConstant.EN_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("zh")&& !Arrays.asList(TransConstant.ZH_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("fr")&& !Arrays.asList(TransConstant.FR_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("es")&& !Arrays.asList(TransConstant.ES_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("it")&& !Arrays.asList(TransConstant.IT_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("de")&& !Arrays.asList(TransConstant.DE_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("tr")&& !Arrays.asList(TransConstant.TR_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("ru")&& !Arrays.asList(TransConstant.RU_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("pt")&& !Arrays.asList(TransConstant.PT_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("vi")&& !Arrays.asList(TransConstant.VI_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("id")&& !Arrays.asList(TransConstant.ID_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("ms")&& !Arrays.asList(TransConstant.MS_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("th")&& !Arrays.asList(TransConstant.TH_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("jp")&& !Arrays.asList(TransConstant.JP_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("kr")&& !Arrays.asList(TransConstant.KR_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else if (source.equals("auto")&& !Arrays.asList(TransConstant.AUTO_TARGET).contains(target)) {
+			return ErrorTAip.SOURCE_TARGET_ERROR.toJsonResult(source+ "源语言不支持目标语言:" + target);
+		}else{
+		for (Map.Entry<String, String> param : entrys) {
+			// sign参数 和 空值参数 不加入算法
+			if (param.getValue() != null && !"".equals(param.getKey().trim())&& !"sign".equals(param.getKey().trim())&& !"".equals(param.getValue().trim())) {
+				baseString.append(param.getKey().trim()).append("=").append(URLEncoder.encode(param.getValue().trim(),"UTF-8")).append("&");
 			}
-            //sign参数 和 空值参数 不加入算法
-            if(param.getValue()!=null && !"".equals(param.getKey().trim()) && !"sign".equals(param.getKey().trim()) && !"".equals(param.getValue().trim())) {
-                baseString.append(param.getKey().trim()).append("=").append(URLEncoder.encode(param.getValue().trim(),"UTF-8")).append("&");
-            	}
-	        }
-	        if(baseString.length() > 0 ) {
-	            baseString.deleteCharAt(baseString.length()-1).append("&app_key="+params.get("app_key"));
-	        }
-	        System.out.println("加密的参数字符串："+baseString.toString());
-	        // 使用MD5对待签名串求签
-	        try {
-	        	String sign = MD5.getMD5(baseString.toString());
-	        	return sign;
-	        } catch (Exception ex) {
-	            throw new IOException(ex);
-	        }
-	    }
+		}
+		if (baseString.length() > 0) {
+			baseString.deleteCharAt(baseString.length() - 1).append("&app_key=" + app_key);
+		}
+		System.out.println("加密的参数字符串：" + baseString.toString());
+		// 使用MD5对待签名串求签
+		try {
+			sign = MD5.getMD5(baseString.toString());
+			return sign;
+		} catch (Exception ex) {
+			throw new IOException(ex);
+		}
+		}
+	}
 	/**
 	 * SIGN签名生成算法-JAVA版本
 	 * @param  params 请求参数集，所有参数必须已转换为字符串类型
 	 * @return 签名
 	 * @throws IOException
 	 */
-	public static String getSignatureforNLP(HashMap<String,String> params) throws IOException {
+	public static String getSignatureforNLP(HashMap<String,String> params,String app_key) throws IOException {
 	        // 先将参数以其参数名的字典序升序进行排序
 	        Map<String, String> sortedParams = new TreeMap<>(params);
 	        Set<Map.Entry<String, String>> entrys = sortedParams.entrySet();
@@ -245,7 +141,7 @@ public class TencentAISignSort {
 	            }
 	        }
 	        if(baseString.length() > 0 ) {
-	            baseString.deleteCharAt(baseString.length()-1).append("&app_key="+params.get("app_key"));
+	            baseString.deleteCharAt(baseString.length()-1).append("&app_key="+app_key);
 	        }
 	        // 使用MD5对待签名串求签
 	        try {
