@@ -285,4 +285,66 @@ public class TAipSpeech extends BaseClient{
     public String TtaSynthesis(String text) throws Exception{
     	return TtaSynthesis(text, 0, 0);
     }
+    /**
+     * 长语音识别 	待识别语音
+     * 上传长音频，提供回调接口，异步获取识别结果
+     * @param speech 语音数据的Base64编码，原始音频大小上限5MB
+     * @param format 语音压缩格式编码
+     * @param callback_url 用户回调url，需用户提供，用于平台向用户通知识别结果
+     * @return String
+     * @throws Exception
+     */
+    public String asrLong(byte[] speech,int format,String callback_url) throws Exception{
+    	String result ="";
+        HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+        String base64Content = Base64Util.encode(speech);
+        params.put("speech", base64Content);
+        params.put("format", Integer.toString(format));
+        params.put("callback_url",callback_url);
+        String sign = TencentAISignSort.getSignature(params,app_key);
+		params.put("sign",sign);
+        result = HttpUtil.post(SpeechConsts.SPEECH_ASRLONG,TencentAISignSort.getParams(params));
+        return result;
+    }
+    /**
+     * 长语音识别 	待识别语音下载地址
+     * 上传长音频，提供回调接口，异步获取识别结果
+     * @param speech_url 待识别语音下载地址
+     * @param format 语音压缩格式编码
+     * @param callback_url 用户回调url，需用户提供，用于平台向用户通知识别结果
+     * @return String
+     * @throws Exception
+     */
+    public String asrLongByUrl(String speech_url,int format,String callback_url) throws Exception{
+    	String result ="";
+        HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+        params.put("speech_url", speech_url);
+        params.put("format", Integer.toString(format));
+        params.put("callback_url",callback_url);
+        String sign = TencentAISignSort.getSignature(params,app_key);
+		params.put("sign",sign);
+        result = HttpUtil.post(SpeechConsts.SPEECH_ASRLONG,TencentAISignSort.getParams(params));
+        return result;
+    }
+    /**
+     * 长语音识别 	 待识别语音
+     * 上传长音频，提供回调接口，异步获取识别结果
+     * @param speechPath 音频文件本地路径
+     * @param format 语音压缩格式编码
+     * @param callback_url 用户回调url，需用户提供，用于平台向用户通知识别结果
+     * @return String
+     * @throws Exception
+     */
+    public String asrLong(String speechPath,int format,String callback_url) throws Exception{
+    	byte[] speech = FileUtil.readFileByBytes(speechPath);
+    	return asrLong(speech, format, callback_url);
+    }
 }
