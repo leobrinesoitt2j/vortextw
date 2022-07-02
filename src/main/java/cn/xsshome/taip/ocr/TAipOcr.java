@@ -121,10 +121,11 @@ public class TAipOcr extends BaseClient{
      * 行驶证驾驶证OCR识别
      * 识别行驶证或驾驶证图像上面的字段信息
      * @param image - 二进制图像数据
+     * @param type 识别类型，0-行驶证识别，1-驾驶证识别
      * @return String
 	 * @throws Exception 
      */
-    public String driverlicenseOcr(byte[] image) throws Exception{
+    public String driverlicenseOcr(byte[] image,int type) throws Exception{
     	String result ="";
         HashMap<String, String> params = new HashMap<String, String>();
 		String time_stamp = System.currentTimeMillis()/1000+"";
@@ -133,6 +134,7 @@ public class TAipOcr extends BaseClient{
 		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
         params.put("image", base64Content);
+        params.put("type", String.valueOf(type));
         String sign = TencentAISignSort.getSignature(params,app_key);
 		params.put("sign",sign);
         result = HttpUtil.post(OcrConsts.OCR_DRIVERLICENSEOCR,TencentAISignSort.getParams(params));
@@ -142,12 +144,13 @@ public class TAipOcr extends BaseClient{
      * 行驶证驾驶证OCR识别
      * 识别行驶证或驾驶证图像上面的字段信息
      * @param filePath - 本地路径图像文件
+     * @param type 识别类型，0-行驶证识别，1-驾驶证识别
      * @return String
 	 * @throws Exception 
      */
-    public String driverlicenseOcr(String filePath) throws Exception{
+    public String driverlicenseOcr(String filePath,int type) throws Exception{
     	byte[] image = FileUtil.readFileByBytes(filePath);
-        return driverlicenseOcr(image);
+        return driverlicenseOcr(image,type);
     }
    	 /**
      * 营业执照OCR识别
