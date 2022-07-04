@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-4.2.2-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
+[![Version](https://img.shields.io/badge/version-4.2.3-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![JDK 1.7](https://img.shields.io/badge/JDK-1.7-green.svg "JDK 1.7")]()
 
@@ -206,6 +206,7 @@ public class Sample{
         String filePathB = "G:/dcg.jpg";
         /**********人脸识别**********/
         String result = aipFace.detect(filePath);//人脸检测与分析
+        String result = aipFace.detectByUrl("https://yyb.gtimg.com/aiplat/static/ai-demo/small/f-3.jpg");//人脸检测与分析使用image_url参数
         String result = aipFace.detectMulti(filePath);    //多人脸检测
         String result = aipFace.faceCompare(filePathA, filePathB);    //人脸对比     
         String result = aipFace.detectCrossage(filePathA, filePathB);//跨年龄人脸识别

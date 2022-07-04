@@ -14,10 +14,14 @@ import cn.xsshome.taip.nlp.NLPConsts;
  */
 public class HttpUtil {
 
-    public static String post(String requestUrl,String params) throws Exception {
-        URL url = new URL(requestUrl);
-        // 打开和URL之间的连接
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    public static String post(String requestUrl,String params){
+        String result = "";
+        URL url = null;
+        HttpURLConnection connection = null;
+        try {
+    	url = new URL(requestUrl);
+    	// 打开和URL之间的连接
+    	connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         // 设置通用的请求属性
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -39,12 +43,19 @@ public class HttpUtil {
         }else{
         	in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
         }
-        String result = "";
         String getLine;
         while ((getLine = in.readLine()) != null) {
             result += getLine;
         }
         in.close();
+        connection.disconnect();
+    	} catch (Exception e) {
+    		new Exception("HttpUtil出错了。快联系小帅丶吧。QQ:783021975"+e.getMessage());
+    	}finally{
+    		if(connection!=null){
+    			connection.disconnect();
+    		}
+    	}
         return result;
     }
 }

@@ -45,6 +45,27 @@ public class TAipFace extends BaseClient{
     /**
      * 人脸检测与分析	
      * 识别上传图像上面的人脸信息
+     * @param url - 图像网络地址
+     * @return String
+	 * @throws Exception 
+     */
+    public String detectByUrl(String url) throws Exception{
+    	String result ="";
+        HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+        params.put("image_url", url);
+        params.put("mode", "1");
+        String sign = TencentAISignSort.getSignature(params,app_key);
+		params.put("sign",sign);
+        result = HttpUtil.post(FaceConsts.FACE_DETECT,TencentAISignSort.getParams(params));
+        return result;
+    }
+    /**
+     * 人脸检测与分析	
+     * 识别上传图像上面的人脸信息
      * @param filePath - 本地路径图像文件
      * @return String
 	 * @throws Exception 
