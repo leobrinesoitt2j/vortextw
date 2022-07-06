@@ -1,7 +1,7 @@
 [![Version](https://img.shields.io/badge/version-4.2.3-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![JDK 1.7](https://img.shields.io/badge/JDK-1.7-green.svg "JDK 1.7")]()
-
+[![WiKi](https://img.shields.io/readthedocs/pip.svg)](https://apidoc.gitee.com/xshuai/taip/)
 文档请移步:[http://taip.mydoc.io/](http://taip.mydoc.io/)
 
 APPID APPKEY 是腾讯AI创建应用后得到。请移步腾讯AI官网获取哦。[https://ai.qq.com/](https://ai.qq.com/)
