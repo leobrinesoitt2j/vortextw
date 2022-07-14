@@ -149,7 +149,7 @@ public class TAipSpeech extends BaseClient{
      * @return String
      * @throws Exception
      */
-    public String asrLab(String filePath,int format,int rate,int seq,int len,int end,String speech_id) throws Exception{
+    public String asrLab(String filePath,int format,int rate,int seq,int len,int end) throws Exception{
     	String base64Content = Base64Util.encode(FileUtil.readFileByBytes(filePath));
         return asrLab(format, rate, seq, len, end, base64Content);
     }

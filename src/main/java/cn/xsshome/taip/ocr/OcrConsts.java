@@ -17,4 +17,8 @@ public class OcrConsts {
 	static final String OCR_DRIVERLICENSEOCR = "https://api.ai.qq.com/fcgi-bin/ocr/ocr_driverlicenseocr";
 	// 名片OCR识别
 	static final String OCR_BCOCR = "https://api.ai.qq.com/fcgi-bin/ocr/ocr_bcocr";
+	// 手写体OCR识别 	
+	static final String OCR_HANDWRITINGOCR = "https://api.ai.qq.com/fcgi-bin/ocr/ocr_handwritingocr";
+	// 车牌OCR识别 		
+	static final String OCR_PLATEOCR = "https://api.ai.qq.com/fcgi-bin/ocr/ocr_plateocr";	
 }

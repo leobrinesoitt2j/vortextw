@@ -215,5 +215,112 @@ public class TAipOcr extends BaseClient{
    public String creditcardOcr(String filePath) throws Exception{
 		byte[] image = FileUtil.readFileByBytes(filePath);
 		return creditcardOcr(image);
-	}    
+	}  
+   /**
+    * 手写体OCROCR识别	
+    * 检测和识别图像上面手写体的字段信息
+    * @param image - 二进制图像数据
+    * @return String
+	* @throws Exception 
+    */
+	public String handWritingOcrByImage(byte[] image) throws Exception {
+		String result = "";
+		HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis() / 1000 + "";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		String base64Content = Base64Util.encode(image);
+		params.put("image", base64Content);
+		String sign = TencentAISignSort.getSignature(params, app_key);
+		params.put("sign", sign);
+		result = HttpUtil.post(OcrConsts.OCR_HANDWRITINGOCR,TencentAISignSort.getParams(params));
+		return result;
+	}
+   /**
+    * 手写体OCROCR识别	
+    * 检测和识别图像上面手写体的字段信息	
+    * @param filePath - 本地路径图像文件
+    * @return String
+	* @throws Exception 
+    */
+   public String handWritingOcrByImage(String filePath) throws Exception{
+		byte[] image = FileUtil.readFileByBytes(filePath);
+		return handWritingOcrByImage(image);
+	}   
+   /**
+    * 手写体OCROCR识别	
+    * 检测和识别图像上面手写体的字段信息
+    * @param image_url - 图片URL地址
+    * @return String
+	* @throws Exception 
+    */
+	public String handWritingOcrByUrl(String image_url) throws Exception {
+		String result = "";
+		HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis() / 1000 + "";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		params.put("image_url", image_url);
+		String sign = TencentAISignSort.getSignature(params, app_key);
+		params.put("sign", sign);
+		result = HttpUtil.post(OcrConsts.OCR_HANDWRITINGOCR,TencentAISignSort.getParams(params));
+		return result;
+	}
+
+	/**
+	 * 车牌OCR 	
+	 * 识别车牌上面的字段信息
+	 * @param image  - 二进制图像数据
+	 * @return String
+	 * @throws Exception
+	 */
+	public String plateOcrByImage(byte[] image) throws Exception {
+		String result = "";
+		HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis() / 1000 + "";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		String base64Content = Base64Util.encode(image);
+		params.put("image", base64Content);
+		String sign = TencentAISignSort.getSignature(params, app_key);
+		params.put("sign", sign);
+		result = HttpUtil.post(OcrConsts.OCR_PLATEOCR,TencentAISignSort.getParams(params));
+		return result;
+	}
+
+	/**
+	 * 车牌OCR 	
+	 * 识别车牌上面的字段信息
+	 * @param filePath    - 本地路径图像文件
+	 * @return String
+	 * @throws Exception
+	 */
+	public String plateOcrByImage(String filePath) throws Exception {
+		byte[] image = FileUtil.readFileByBytes(filePath);
+		return plateOcrByImage(image);
+	}
+
+	/**
+	 * 车牌OCR 	
+	 * 识别车牌上面的字段信息
+	 * @param image_url - 图片URL地址
+	 * @return String
+	 * @throws Exception
+	 */
+	public String plateOcrByUrl(String image_url) throws Exception {
+		String result = "";
+		HashMap<String, String> params = new HashMap<String, String>();
+		String time_stamp = System.currentTimeMillis() / 1000 + "";
+		params.put("app_id", app_id);
+		params.put("time_stamp", time_stamp);
+		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		params.put("image_url", image_url);
+		String sign = TencentAISignSort.getSignature(params, app_key);
+		params.put("sign", sign);
+		result = HttpUtil.post(OcrConsts.OCR_PLATEOCR,TencentAISignSort.getParams(params));
+		return result;
+	}
 }
