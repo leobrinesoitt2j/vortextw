@@ -55,7 +55,7 @@ cn.xsshome.taip
 <dependency>
   <groupId>cn.xsshome</groupId>
   <artifactId>taip</artifactId>
-  <version>4.2.3</version>
+  <version>4.2.5</version>
 </dependency>
 ```
    
