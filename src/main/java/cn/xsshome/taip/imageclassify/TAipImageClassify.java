@@ -1,9 +1,9 @@
 package cn.xsshome.taip.imageclassify;
 
-import java.util.HashMap;
 
 import cn.xsshome.taip.base.BaseClient;
-import cn.xsshome.taip.http.HttpUtil;
+import cn.xsshome.taip.http.TAipEBodyFormat;
+import cn.xsshome.taip.http.TAipRequest;
 import cn.xsshome.taip.sign.TencentAISignSort;
 import cn.xsshome.taip.util.Base64Util;
 import cn.xsshome.taip.util.FileUtil;
@@ -29,18 +29,20 @@ public class TAipImageClassify extends BaseClient{
      */
     public String visionScener(byte[] image,int format,int topk) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("format",Integer.toString(format));
-        params.put("topk",Integer.toString(topk));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_VISION_SCENER,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("format",Integer.toString(format));
+        request.addBody("topk",Integer.toString(topk));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_VISION_SCENER);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -67,18 +69,20 @@ public class TAipImageClassify extends BaseClient{
      */
     public String visionObjectr(byte[] image,int format,int topk) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("format",Integer.toString(format));
-        params.put("topk",Integer.toString(topk));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_VISION_OBJECTR,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("format",Integer.toString(format));
+        request.addBody("topk",Integer.toString(topk));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_VISION_OBJECTR);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -103,16 +107,18 @@ public class TAipImageClassify extends BaseClient{
      */
     public String imageTag(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_IMAGE_TAG,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_IMAGE_TAG);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -136,17 +142,19 @@ public class TAipImageClassify extends BaseClient{
      */
     public String visionImgidentify(byte[] image,int scene) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("scene", Integer.toString(scene));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_VISION_IMGIDENTIFY,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("scene", Integer.toString(scene));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_VISION_IMGIDENTIFY);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -170,17 +178,19 @@ public class TAipImageClassify extends BaseClient{
      */
     public String flowersAndPlant(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("scene", "2");
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_VISION_IMGIDENTIFY,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("scene", "2");
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_VISION_IMGIDENTIFY);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -203,17 +213,19 @@ public class TAipImageClassify extends BaseClient{
      */
     public String vehicle(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("scene", "1");
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_VISION_IMGIDENTIFY,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("scene", "1");
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_VISION_IMGIDENTIFY);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -237,17 +249,19 @@ public class TAipImageClassify extends BaseClient{
      */
     public String visionImgtotext(byte[] image,String session_id) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("session_id", session_id);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_VISION_IMGTOTEXT,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("session_id", session_id);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_VISION_IMGTOTEXT);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -271,16 +285,18 @@ public class TAipImageClassify extends BaseClient{
      */
     public String imageFuzzy(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_IMAGE_FUZZY,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_IMAGE_FUZZY);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -303,16 +319,18 @@ public class TAipImageClassify extends BaseClient{
      */
     public String imageFood(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(ImageClassifyConsts.ICR_IMAGE_FOOD,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(ImageClassifyConsts.ICR_IMAGE_FOOD);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**

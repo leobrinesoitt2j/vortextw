@@ -1,9 +1,8 @@
 package cn.xsshome.taip.nlp;
 
-import java.util.HashMap;
-
 import cn.xsshome.taip.base.BaseClient;
-import cn.xsshome.taip.http.HttpUtil;
+import cn.xsshome.taip.http.TAipEBodyFormat;
+import cn.xsshome.taip.http.TAipRequest;
 import cn.xsshome.taip.sign.TencentAISignSort;
 import cn.xsshome.taip.util.Base64Util;
 import cn.xsshome.taip.util.FileUtil;
@@ -27,15 +26,17 @@ public class TAipNlp extends BaseClient{
 	 */
     public String nlpWordseg(String text) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("text", text);
-        String sign = TencentAISignSort.getSignatureforNLP(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_WORDSEG,TencentAISignSort.getParamsforNLP(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("text", text);
+        String sign = TencentAISignSort.getSignatureforNLP(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_WORDSEG);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	/**
@@ -47,15 +48,17 @@ public class TAipNlp extends BaseClient{
 	 */
     public String nlpWordpos(String text) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("text", text);
-        String sign = TencentAISignSort.getSignatureforNLP(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_WORDPOS,TencentAISignSort.getParamsforNLP(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("text", text);
+        String sign = TencentAISignSort.getSignatureforNLP(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_WORDPOS);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	/**
@@ -67,15 +70,17 @@ public class TAipNlp extends BaseClient{
 	 */
     public String nlpWordner(String text) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+     	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("text", text);
-        String sign = TencentAISignSort.getSignatureforNLP(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_WORDNER,TencentAISignSort.getParamsforNLP(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("text", text);
+        String sign = TencentAISignSort.getSignatureforNLP(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_WORDNER);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	/**
@@ -87,15 +92,17 @@ public class TAipNlp extends BaseClient{
 	 */
     public String nlpWordsyn(String text) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("text", text);
-        String sign = TencentAISignSort.getSignatureforNLP(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_WORDSYN,TencentAISignSort.getParamsforNLP(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("text", text);
+        String sign = TencentAISignSort.getSignatureforNLP(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_WORDSYN);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -107,15 +114,17 @@ public class TAipNlp extends BaseClient{
 	 */
     public String nlpWordcom(String text) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("text", text);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_WORDCOM,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("text", text);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_WORDCOM);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -127,15 +136,17 @@ public class TAipNlp extends BaseClient{
 	 */
     public String nlpTextpolar(String text) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("text", text);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_TEXTPOLAR,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+        request.addBody("text", text);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_TEXTPOLAR);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -147,16 +158,18 @@ public class TAipNlp extends BaseClient{
      */
     public String nlpTextchat(String session,String question) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+            	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("session", session);
-        params.put("question", question);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_TEXTCHAT,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+        request.addBody("session", session);
+        request.addBody("question", question);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_TEXTCHAT);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	 /**
@@ -170,16 +183,18 @@ public class TAipNlp extends BaseClient{
      */
     public String nlpTextTrans(int type,String text) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+            	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("type", String.valueOf(type));
-        params.put("text", text);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_TEXTTRANS,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+        request.addBody("type", String.valueOf(type));
+        request.addBody("text", text);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_TEXTTRANS);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -194,20 +209,22 @@ public class TAipNlp extends BaseClient{
      */
     public String nlpTextTranslate(String text,String source,String target) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+            	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("text", text);
-        params.put("source", source);
-        params.put("target", target);
-        String sign = TencentAISignSort.getSignature4TransText(params,app_key);
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+        request.addBody("text", text);
+        request.addBody("source", source);
+        request.addBody("target", target);
+        String sign = TencentAISignSort.getSignature4TransText(request.getBody(),app_key);
         if(sign.contains("errorCode")){
         	return sign;
         }
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_TEXTTRANSLATE,TencentAISignSort.getParams(params));
+		request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_TEXTTRANSLATE);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -223,20 +240,22 @@ public class TAipNlp extends BaseClient{
      */
     public String nlpImageTranslate(byte[] image,String session_id,String scene,String source,String target) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+            	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
 		String imageBase64 = Base64Util.encode(image);
-		params.put("image", imageBase64);
-		params.put("session_id", session_id);
-		params.put("scene", scene);
-        params.put("source", source);
-        params.put("target", target);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_IMAGETRANSLATE,TencentAISignSort.getParams(params));
+		request.addBody("image", imageBase64);
+		request.addBody("session_id", session_id);
+		request.addBody("scene", scene);
+        request.addBody("source", source);
+        request.addBody("target", target);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_IMAGETRANSLATE);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result; 
     }
     /**
@@ -265,19 +284,21 @@ public class TAipNlp extends BaseClient{
      */
     public String nlpTextDetect(String text,String candidate_langs,int force) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+            	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("text", text);
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("text", text);
 		if(null!=candidate_langs&&!candidate_langs.equals("")){
-		params.put("candidate_langs", candidate_langs);
+		request.addBody("candidate_langs", candidate_langs);
 		}
-        params.put("force", String.valueOf(force));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_TEXTDETECT,TencentAISignSort.getParams(params));
+        request.addBody("force", String.valueOf(force));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_TEXTDETECT);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -306,22 +327,24 @@ public class TAipNlp extends BaseClient{
      */
     public String nlpSpeechTranslate(int format,int seq,int end,String session_id,byte[] speech_chunk,String source,String target) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("format",String.valueOf(format));
-		params.put("seq", String.valueOf(seq));
-        params.put("end", String.valueOf(end));
-        params.put("session_id", session_id);
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("format",String.valueOf(format));
+		request.addBody("seq", String.valueOf(seq));
+        request.addBody("end", String.valueOf(end));
+        request.addBody("session_id", session_id);
         String base64Voice = Base64Util.encode(speech_chunk);
-        params.put("speech_chunk",base64Voice);
-        params.put("source",source);
-        params.put("target",target);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(NLPConsts.NLP_SPEECHTRANSLATE,TencentAISignSort.getParams(params));
+        request.addBody("speech_chunk",base64Voice);
+        request.addBody("source",source);
+        request.addBody("target",target);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(NLPConsts.NLP_SPEECHTRANSLATE);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**

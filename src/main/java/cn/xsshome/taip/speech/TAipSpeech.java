@@ -1,12 +1,8 @@
 package cn.xsshome.taip.speech;
 
-import java.util.HashMap;
-
-
-
-
 import cn.xsshome.taip.base.BaseClient;
-import cn.xsshome.taip.http.HttpUtil;
+import cn.xsshome.taip.http.TAipEBodyFormat;
+import cn.xsshome.taip.http.TAipRequest;
 import cn.xsshome.taip.sign.TencentAISignSort;
 import cn.xsshome.taip.util.Base64Util;
 import cn.xsshome.taip.util.FileUtil;
@@ -28,18 +24,20 @@ public class TAipSpeech extends BaseClient{
      */
     public String asrEcho(byte[] audio,int format,int rate) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(audio);
-        params.put("speech", base64Content);
-        params.put("format", Integer.toString(format));
-        params.put("rate",Integer.toString(rate));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(SpeechConsts.SPEECH_ASR_AAI,TencentAISignSort.getParams(params));
+        request.addBody("speech", base64Content);
+        request.addBody("format", Integer.toString(format));
+        request.addBody("rate",Integer.toString(rate));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_ASR_AAI);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	 /**
@@ -65,17 +63,19 @@ public class TAipSpeech extends BaseClient{
      */
     public String asrEcho(byte[] audio,int format) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(audio);
-        params.put("speech", base64Content);
-        params.put("format", Integer.toString(format));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(SpeechConsts.SPEECH_ASR_AAI,TencentAISignSort.getParams(params));
+        request.addBody("speech", base64Content);
+        request.addBody("format", Integer.toString(format));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_ASR_AAI);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	 /**
@@ -104,21 +104,23 @@ public class TAipSpeech extends BaseClient{
      */
     public String asrLab(int format,int rate,int seq,int len,int end,String speech_chunk) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("format", Integer.toString(format));
-		params.put("rate",Integer.toString(rate));
-		params.put("seq",Integer.toString(seq));
-		params.put("len", Integer.toString(len));
-		params.put("end", Integer.toString(end));
-		params.put("speech_id",RandomNonceStrUtil.getRandomString(10));
-		params.put("speech_chunk", speech_chunk);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(SpeechConsts.SPEECH_ASR_AAIS,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("format", Integer.toString(format));
+		request.addBody("rate",Integer.toString(rate));
+		request.addBody("seq",Integer.toString(seq));
+		request.addBody("len", Integer.toString(len));
+		request.addBody("end", Integer.toString(end));
+		request.addBody("speech_id",RandomNonceStrUtil.getRandomString(10));
+		request.addBody("speech_chunk", speech_chunk);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_ASR_AAIS);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -169,24 +171,26 @@ public class TAipSpeech extends BaseClient{
      */
     public String asrWx(byte[] audio,int format,int rate,int bits,int seq,int len,int end,int cont_res) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("format", Integer.toString(format));
-		params.put("rate",Integer.toString(rate));
-		params.put("seq",Integer.toString(seq));
-		params.put("len", Integer.toString(len));
-		params.put("end", Integer.toString(end));
-		params.put("bits", Integer.toString(bits));
-		params.put("cont_res", Integer.toString(cont_res));
-		params.put("speech_id",RandomNonceStrUtil.getRandomString(10));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("format", Integer.toString(format));
+		request.addBody("rate",Integer.toString(rate));
+		request.addBody("seq",Integer.toString(seq));
+		request.addBody("len", Integer.toString(len));
+		request.addBody("end", Integer.toString(end));
+		request.addBody("bits", Integer.toString(bits));
+		request.addBody("cont_res", Integer.toString(cont_res));
+		request.addBody("speech_id",RandomNonceStrUtil.getRandomString(10));
 		String speech_chunk = Base64Util.encode(audio);
-		params.put("speech_chunk", speech_chunk);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(SpeechConsts.SPEECH_ASR_WX,TencentAISignSort.getParams(params));
+		request.addBody("speech_chunk", speech_chunk);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_ASR_WX);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	 /**
@@ -222,21 +226,23 @@ public class TAipSpeech extends BaseClient{
      */
     public String TtsSynthesis(String text,int speaker,int format,int volume,int speed,int aht,int apc) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("text", text);
-		params.put("speaker",String.valueOf(speaker));
-		params.put("format",String.valueOf(format));
-		params.put("volume",String.valueOf(volume));
-		params.put("speed",String.valueOf(speed));
-		params.put("aht", String.valueOf(aht));
-		params.put("apc", String.valueOf(apc));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(SpeechConsts.SPEECH_TTS_TTS,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("text", text);
+		request.addBody("speaker",String.valueOf(speaker));
+		request.addBody("format",String.valueOf(format));
+		request.addBody("volume",String.valueOf(volume));
+		request.addBody("speed",String.valueOf(speed));
+		request.addBody("aht", String.valueOf(aht));
+		request.addBody("apc", String.valueOf(apc));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_TTS_TTS);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -262,17 +268,19 @@ public class TAipSpeech extends BaseClient{
      */
     public String TtaSynthesis(String text,int model_type,int speed) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("text", text);
-		params.put("speed", Integer.toString(speed));
-		params.put("model_type", Integer.toString(model_type));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(SpeechConsts.SPEECH_TTS_TTA,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("text", text);
+		request.addBody("speed", Integer.toString(speed));
+		request.addBody("model_type", Integer.toString(model_type));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_TTS_TTA);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -296,18 +304,20 @@ public class TAipSpeech extends BaseClient{
      */
     public String asrLong(byte[] speech,int format,String callback_url) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(speech);
-        params.put("speech", base64Content);
-        params.put("format", Integer.toString(format));
-        params.put("callback_url",callback_url);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(SpeechConsts.SPEECH_ASRLONG,TencentAISignSort.getParams(params));
+        request.addBody("speech", base64Content);
+        request.addBody("format", Integer.toString(format));
+        request.addBody("callback_url",callback_url);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_ASRLONG);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -321,17 +331,19 @@ public class TAipSpeech extends BaseClient{
      */
     public String asrLongByUrl(String speech_url,int format,String callback_url) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("speech_url", speech_url);
-        params.put("format", Integer.toString(format));
-        params.put("callback_url",callback_url);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(SpeechConsts.SPEECH_ASRLONG,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+        request.addBody("speech_url", speech_url);
+        request.addBody("format", Integer.toString(format));
+        request.addBody("callback_url",callback_url);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_ASRLONG);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**

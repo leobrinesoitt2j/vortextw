@@ -1,11 +1,11 @@
 package cn.xsshome.taip.face;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import cn.xsshome.taip.base.BaseClient;
-import cn.xsshome.taip.http.HttpUtil;
+import cn.xsshome.taip.http.TAipEBodyFormat;
+import cn.xsshome.taip.http.TAipRequest;
 import cn.xsshome.taip.sign.TencentAISignSort;
 import cn.xsshome.taip.util.Base64Util;
 import cn.xsshome.taip.util.FileUtil;
@@ -28,39 +28,46 @@ public class TAipFace extends BaseClient{
 	 * @throws Exception 
      */
     public String detect(byte[] image) throws Exception{
+    	TAipRequest request = new TAipRequest();
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("mode", "1");
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.FACE_DETECT,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("mode", "1");
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.FACE_DETECT);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
+    
     /**
      * 人脸检测与分析	
      * 识别上传图像上面的人脸信息
+     * 暂时不可以使用 
      * @param url - 图像网络地址
      * @return String
 	 * @throws Exception 
      */
+    @Deprecated
     public String detectByUrl(String url) throws Exception{
+    	TAipRequest request = new TAipRequest();
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("image_url", url);
-        params.put("mode", "1");
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.FACE_DETECT,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("image_url", url);
+		request.addBody("mode", "1");
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.FACE_DETECT);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -82,17 +89,19 @@ public class TAipFace extends BaseClient{
 	 * @throws Exception 
      */
     public String detectMulti(byte[] image) throws Exception{
+    	TAipRequest request = new TAipRequest();
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.FACE_DETECTMULTI,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.FACE_DETECTMULTI);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -116,18 +125,20 @@ public class TAipFace extends BaseClient{
      */
     public String faceCompare(byte[] image_a,byte[] image_b) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64ContentA = Base64Util.encode(image_a);
         String base64ContentB = Base64Util.encode(image_b);
-        params.put("image_a", base64ContentA);
-        params.put("image_b", base64ContentB);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.FACE_COMPARE,TencentAISignSort.getParams(params));
+        request.addBody("image_a", base64ContentA);
+        request.addBody("image_b", base64ContentB);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.FACE_COMPARE);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -153,18 +164,20 @@ public class TAipFace extends BaseClient{
      */
     public String detectCrossage(byte[] source_image,byte[] target_image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64ContentA = Base64Util.encode(source_image);
         String base64ContentB = Base64Util.encode(target_image);
-        params.put("source_image", base64ContentA);
-        params.put("target_image", base64ContentB);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.FACE_DETECTCROSSAGE,TencentAISignSort.getParams(params));
+        request.addBody("source_image", base64ContentA);
+        request.addBody("target_image", base64ContentB);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.FACE_DETECTCROSSAGE);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -189,17 +202,19 @@ public class TAipFace extends BaseClient{
      */
     public String faceShape(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("mode", "1");
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.FACE_SHAPE,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("mode", "1");
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.FACE_SHAPE);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -224,18 +239,20 @@ public class TAipFace extends BaseClient{
      */
     public String faceIdentify(byte[] image,String group_id,int topn) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+      	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("group_id", group_id);
-        params.put("topn", String.valueOf(topn));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.FACE_IDENTIFY,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("group_id", group_id);
+        request.addBody("topn", String.valueOf(topn));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.FACE_IDENTIFY);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -261,17 +278,19 @@ public class TAipFace extends BaseClient{
      */
     public String faceVerify(byte[] image,String person_id) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("person_id", person_id);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.FACE_VERIFY,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("person_id", person_id);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.FACE_VERIFY);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -299,20 +318,22 @@ public class TAipFace extends BaseClient{
      */
     public String faceNewperson(byte[] image,String group_ids,String person_id,String person_name,String tag) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("group_ids", group_ids);
-        params.put("person_id", person_id);
-        params.put("person_name", person_name);
-        params.put("tag", tag);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.PERSONFACE_NEWPERSON,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("group_ids", group_ids);
+        request.addBody("person_id", person_id);
+        request.addBody("person_name", person_name);
+        request.addBody("tag", tag);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.PERSONFACE_NEWPERSON);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -342,19 +363,21 @@ public class TAipFace extends BaseClient{
      */
     public String faceNewperson(byte[] image,String group_ids,String person_id,String person_name) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("group_ids", group_ids);
-        params.put("person_id", person_id);
-        params.put("person_name", person_name);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.PERSONFACE_NEWPERSON,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("group_ids", group_ids);
+        request.addBody("person_id", person_id);
+        request.addBody("person_name", person_name);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.PERSONFACE_NEWPERSON);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -380,15 +403,17 @@ public class TAipFace extends BaseClient{
      */
     public String faceDelperson(String person_id) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("person_id", person_id);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.PERSONFACE_DELPERSON,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("person_id", person_id);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+		request.setUri(FaceConsts.PERSONFACE_DELPERSON);
+		request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+		result = requestServer(request);
         return result;
     }
     /**
@@ -403,21 +428,23 @@ public class TAipFace extends BaseClient{
     public String faceAddfaceByte(List<byte[]> images,String person_id,String tag) throws Exception{
     	String result ="";
     	String imagestr ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
 		for (int i = 0; i < images.size(); i++) {
 			imagestr +=Base64Util.encode(images.get(i))+"|";
 		}
 		imagestr = imagestr.substring(0, imagestr.length()-1);
-        params.put("person_id", person_id);
-        params.put("images", imagestr);
-        params.put("tag", tag);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.PERSONFACE_ADD,TencentAISignSort.getParams(params));
+		request.addBody("person_id", person_id);
+		request.addBody("images", imagestr);
+		request.addBody("tag", tag);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.PERSONFACE_ADD);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -446,16 +473,18 @@ public class TAipFace extends BaseClient{
      */
     public String faceDelFace(String person_id,String face_ids) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("person_id", person_id);
-        params.put("face_ids", face_ids);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.PERSONFACE_DEL,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("person_id", person_id);
+		request.addBody("face_ids", face_ids);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.PERSONFACE_DEL);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -469,17 +498,19 @@ public class TAipFace extends BaseClient{
      */
     public String faceSetInfo(String person_id,String person_name,String tag) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("person_id", person_id);
-        params.put("person_name", person_name);
-        params.put("tag", tag);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.PERSONFACE_SETINFO,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("person_id", person_id);
+		request.addBody("person_name", person_name);
+		request.addBody("tag", tag);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.PERSONFACE_SETINFO);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -491,15 +522,17 @@ public class TAipFace extends BaseClient{
      */
     public String faceGetInfo(String person_id) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        params.put("person_id", person_id);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.PERSONFACE_GETINFO,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("person_id", person_id);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.PERSONFACE_GETINFO);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -510,14 +543,16 @@ public class TAipFace extends BaseClient{
      */
     public String getGroupIds() throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.INFOFACE_GETGROUPIDS,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.INFOFACE_GETGROUPIDS);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -529,15 +564,17 @@ public class TAipFace extends BaseClient{
      */
     public String getPersonIds(String group_id) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("group_id", group_id);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.INFOFACE_GETPERSONIDS,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("group_id", group_id);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.INFOFACE_GETPERSONIDS);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -549,15 +586,17 @@ public class TAipFace extends BaseClient{
      */
     public String getFaceIds(String person_id) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("person_id", person_id);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.INFOFACE_GETFACEIDS,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("person_id", person_id);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.INFOFACE_GETFACEIDS);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -569,15 +608,17 @@ public class TAipFace extends BaseClient{
      */
     public String getFaceInfo(String face_id) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+    	TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("face_id", face_id);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(FaceConsts.INFOFACE_GETFACEINFO,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("face_id", face_id);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+        request.addBody("sign",sign);
+        request.setUri(FaceConsts.INFOFACE_GETFACEINFO);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 }

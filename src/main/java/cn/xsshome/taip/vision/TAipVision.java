@@ -1,9 +1,9 @@
 package cn.xsshome.taip.vision;
 
-import java.util.HashMap;
 
 import cn.xsshome.taip.base.BaseClient;
-import cn.xsshome.taip.http.HttpUtil;
+import cn.xsshome.taip.http.TAipEBodyFormat;
+import cn.xsshome.taip.http.TAipRequest;
 import cn.xsshome.taip.sign.TencentAISignSort;
 import cn.xsshome.taip.util.Base64Util;
 import cn.xsshome.taip.util.FileUtil;
@@ -23,16 +23,18 @@ public class TAipVision extends BaseClient{
      */
     public String imageTerrorism(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(VisionConsts.IMAGE_TERRORISM,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(VisionConsts.IMAGE_TERRORISM);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	 /**
@@ -55,16 +57,18 @@ public class TAipVision extends BaseClient{
      */
     public String visionPorn(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(VisionConsts.VISION_PORN,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(VisionConsts.VISION_PORN);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
 	 /**

@@ -1,9 +1,9 @@
 package cn.xsshome.taip.ocr;
 
-import java.util.HashMap;
 
 import cn.xsshome.taip.base.BaseClient;
-import cn.xsshome.taip.http.HttpUtil;
+import cn.xsshome.taip.http.TAipEBodyFormat;
+import cn.xsshome.taip.http.TAipRequest;
 import cn.xsshome.taip.sign.TencentAISignSort;
 import cn.xsshome.taip.util.Base64Util;
 import cn.xsshome.taip.util.FileUtil;
@@ -27,16 +27,18 @@ public class TAipOcr extends BaseClient{
      */
     public String generalOcr(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(OcrConsts.OCR_GENERAL,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(OcrConsts.OCR_GENERAL);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -60,17 +62,19 @@ public class TAipOcr extends BaseClient{
      */
     public String idcardOcr(byte[] image,int card_type) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("card_type",Integer.toString(card_type));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("card_type",Integer.toString(card_type));
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(OcrConsts.OCR_IDCARD,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(OcrConsts.OCR_IDCARD);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -94,16 +98,18 @@ public class TAipOcr extends BaseClient{
      */
     public String bcOcr(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(OcrConsts.OCR_BCOCR,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(OcrConsts.OCR_BCOCR);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -127,17 +133,19 @@ public class TAipOcr extends BaseClient{
      */
     public String driverlicenseOcr(byte[] image,int type) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        params.put("type", String.valueOf(type));
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(OcrConsts.OCR_DRIVERLICENSEOCR,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        request.addBody("type", String.valueOf(type));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(OcrConsts.OCR_DRIVERLICENSEOCR);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -161,16 +169,18 @@ public class TAipOcr extends BaseClient{
      */
     public String bizlicenseOcr(byte[] image) throws Exception{
     	String result ="";
-        HashMap<String, String> params = new HashMap<String, String>();
+        TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis()/1000+"";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
         String base64Content = Base64Util.encode(image);
-        params.put("image", base64Content);
-        String sign = TencentAISignSort.getSignature(params,app_key);
-		params.put("sign",sign);
-        result = HttpUtil.post(OcrConsts.OCR_BIZLICENSE,TencentAISignSort.getParams(params));
+        request.addBody("image", base64Content);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(OcrConsts.OCR_BIZLICENSE);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
         return result;
     }
     /**
@@ -193,16 +203,18 @@ public class TAipOcr extends BaseClient{
     */
 	public String creditcardOcr(byte[] image) throws Exception {
 		String result = "";
-		HashMap<String, String> params = new HashMap<String, String>();
+		TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis() / 1000 + "";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
 		String base64Content = Base64Util.encode(image);
-		params.put("image", base64Content);
-		String sign = TencentAISignSort.getSignature(params, app_key);
-		params.put("sign", sign);
-		result = HttpUtil.post(OcrConsts.OCR_BANK,TencentAISignSort.getParams(params));
+		request.addBody("image", base64Content);
+		String sign = TencentAISignSort.getSignature(request.getBody(), app_key);
+		request.addBody("sign", sign);
+        request.setUri(OcrConsts.OCR_BANK);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
 		return result;
 	}
    /**
@@ -225,16 +237,18 @@ public class TAipOcr extends BaseClient{
     */
 	public String handWritingOcrByImage(byte[] image) throws Exception {
 		String result = "";
-		HashMap<String, String> params = new HashMap<String, String>();
+		TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis() / 1000 + "";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
 		String base64Content = Base64Util.encode(image);
-		params.put("image", base64Content);
-		String sign = TencentAISignSort.getSignature(params, app_key);
-		params.put("sign", sign);
-		result = HttpUtil.post(OcrConsts.OCR_HANDWRITINGOCR,TencentAISignSort.getParams(params));
+		request.addBody("image", base64Content);
+		String sign = TencentAISignSort.getSignature(request.getBody(), app_key);
+		request.addBody("sign", sign);
+        request.setUri(OcrConsts.OCR_HANDWRITINGOCR);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
 		return result;
 	}
    /**
@@ -251,21 +265,25 @@ public class TAipOcr extends BaseClient{
    /**
     * 手写体OCROCR识别	
     * 检测和识别图像上面手写体的字段信息
+    * use handWritingOcrByImage
     * @param image_url - 图片URL地址
     * @return String
 	* @throws Exception 
     */
+    @Deprecated
 	public String handWritingOcrByUrl(String image_url) throws Exception {
 		String result = "";
-		HashMap<String, String> params = new HashMap<String, String>();
+		TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis() / 1000 + "";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("image_url", image_url);
-		String sign = TencentAISignSort.getSignature(params, app_key);
-		params.put("sign", sign);
-		result = HttpUtil.post(OcrConsts.OCR_HANDWRITINGOCR,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("image_url", image_url);
+		String sign = TencentAISignSort.getSignature(request.getBody(), app_key);
+		request.addBody("sign", sign);
+        request.setUri(OcrConsts.OCR_HANDWRITINGOCR);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
 		return result;
 	}
 
@@ -278,16 +296,18 @@ public class TAipOcr extends BaseClient{
 	 */
 	public String plateOcrByImage(byte[] image) throws Exception {
 		String result = "";
-		HashMap<String, String> params = new HashMap<String, String>();
+		TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis() / 1000 + "";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
 		String base64Content = Base64Util.encode(image);
-		params.put("image", base64Content);
-		String sign = TencentAISignSort.getSignature(params, app_key);
-		params.put("sign", sign);
-		result = HttpUtil.post(OcrConsts.OCR_PLATEOCR,TencentAISignSort.getParams(params));
+		request.addBody("image", base64Content);
+		String sign = TencentAISignSort.getSignature(request.getBody(), app_key);
+		request.addBody("sign", sign);
+        request.setUri(OcrConsts.OCR_PLATEOCR);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
 		return result;
 	}
 
@@ -312,15 +332,17 @@ public class TAipOcr extends BaseClient{
 	 */
 	public String plateOcrByUrl(String image_url) throws Exception {
 		String result = "";
-		HashMap<String, String> params = new HashMap<String, String>();
+		TAipRequest request = new TAipRequest();
 		String time_stamp = System.currentTimeMillis() / 1000 + "";
-		params.put("app_id", app_id);
-		params.put("time_stamp", time_stamp);
-		params.put("nonce_str", RandomNonceStrUtil.getRandomString());
-		params.put("image_url", image_url);
-		String sign = TencentAISignSort.getSignature(params, app_key);
-		params.put("sign", sign);
-		result = HttpUtil.post(OcrConsts.OCR_PLATEOCR,TencentAISignSort.getParams(params));
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("image_url", image_url);
+		String sign = TencentAISignSort.getSignature(request.getBody(), app_key);
+		request.addBody("sign", sign);
+        request.setUri(OcrConsts.OCR_PLATEOCR);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
 		return result;
 	}
 }

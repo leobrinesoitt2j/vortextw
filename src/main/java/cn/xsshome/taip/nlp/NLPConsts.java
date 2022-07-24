@@ -14,7 +14,7 @@ public class NLPConsts {
 	//同义词识别  GBK
 	public static final String NLP_WORDSYN = "https://api.ai.qq.com/fcgi-bin/nlp/nlp_wordsyn";
 	//意图成分识别  UTF-8
-	static final String NLP_WORDCOM = "	https://api.ai.qq.com/fcgi-bin/nlp/nlp_wordcom";
+	static final String NLP_WORDCOM = "https://api.ai.qq.com/fcgi-bin/nlp/nlp_wordcom";
 	//情感分析识别  UTF-8
 	static final String NLP_TEXTPOLAR = "https://api.ai.qq.com/fcgi-bin/nlp/nlp_textpolar";
 	//基础闲聊  UTF-8		 

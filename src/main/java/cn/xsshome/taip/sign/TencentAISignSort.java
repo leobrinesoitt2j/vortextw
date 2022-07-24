@@ -107,7 +107,6 @@ public class TencentAISignSort {
 		if (baseString.length() > 0) {
 			baseString.deleteCharAt(baseString.length() - 1).append("&app_key=" + app_key);
 		}
-		System.out.println("加密的参数字符串：" + baseString.toString());
 		// 使用MD5对待签名串求签
 		try {
 			sign = MD5.getMD5(baseString.toString());

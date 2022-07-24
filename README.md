@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-4.2.5-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
+[![Version](https://img.shields.io/badge/version-4.3.0-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
 [![Download](https://img.shields.io/badge/download-v4.2.5jar-brightgreen.svg)](http://central.maven.org/maven2/cn/xsshome/taip/4.2.5/taip-4.2.5.jar)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![JDK 1.7](https://img.shields.io/badge/JDK-1.7-green.svg "JDK 1.7")]()
