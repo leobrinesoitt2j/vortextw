@@ -13,4 +13,6 @@ public class SpeechConsts {
 	static final String SPEECH_TTS_TTS = "https://api.ai.qq.com/fcgi-bin/aai/aai_tts";
 	// 语音合成（优图）
 	static final String SPEECH_TTS_TTA = "https://api.ai.qq.com/fcgi-bin/aai/aai_tta";
+	//关键词检索
+	static final String SPEECH_AAI_DETECTKEYWORD = "https://api.ai.qq.com/fcgi-bin/aai/aai_detectkeyword";
 }

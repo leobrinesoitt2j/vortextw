@@ -270,7 +270,6 @@ public class TAipOcr extends BaseClient{
     * @return String
 	* @throws Exception 
     */
-    @Deprecated
 	public String handWritingOcrByUrl(String image_url) throws Exception {
 		String result = "";
 		TAipRequest request = new TAipRequest();

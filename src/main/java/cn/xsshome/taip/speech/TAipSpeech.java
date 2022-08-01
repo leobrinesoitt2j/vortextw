@@ -359,4 +359,107 @@ public class TAipSpeech extends BaseClient{
     	byte[] speech = FileUtil.readFileByBytes(speechPath);
     	return asrLong(speech, format, callback_url);
     }
+    /**
+     * 关键词检索 	
+     * 上传长音频，提供回调接口，异步获取识别结果
+     * @param speech_url 语音的二进制数据
+     * @param format 语音压缩格式编码
+     * @param callback_url 用户回调url，需用户提供，用于平台向用户通知识别结果
+     * @param key_words 待识别关键词 多个关键词之间用“|”分隔，每个词长度不低于两个字，上限500个词
+     * @return String
+     * @throws Exception
+     */
+    public String aaiDetectkeywordBySpeechURL(String speech_url,int format,String callback_url,String key_words) throws Exception{
+     	String result ="";
+        TAipRequest request = new TAipRequest();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("format", Integer.toString(format));
+        request.addBody("callback_url",callback_url);
+        request.addBody("key_words", key_words);
+        request.addBody("speech_url", speech_url);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_AAI_DETECTKEYWORD);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
+        return result;
+    }
+    /**
+     * 关键词检索 	
+     * 上传长音频，提供回调接口，异步获取识别结果
+     * @param speech 语音的二进制数据
+     * @param format 语音压缩格式编码
+     * @param callback_url 用户回调url，需用户提供，用于平台向用户通知识别结果
+     * @param key_words 待识别关键词 多个关键词之间用“|”分隔，每个词长度不低于两个字，上限500个词
+     * @param rate 采样频率 默认只支持8000 
+     * @return String
+     * @throws Exception
+     */
+    public String aaiDetectkeywordBySpeech(byte[] speech,int format,String callback_url,String key_words,Integer rate) throws Exception{
+     	String result ="";
+        TAipRequest request = new TAipRequest();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("format", Integer.toString(format));
+        String base64Content = Base64Util.encode(speech);
+        request.addBody("callback_url",callback_url);
+        request.addBody("key_words", key_words);
+        request.addBody("speech", base64Content);
+        request.addBody("rate",Integer.toString(rate));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_AAI_DETECTKEYWORD);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
+        return result;
+    }
+    /**
+     * 关键词检索 	
+     * 上传长音频，提供回调接口，异步获取识别结果
+     * @param speechfilePath  本地路径语音文件
+     * @param format 语音压缩格式编码
+     * @param callback_url 用户回调url，需用户提供，用于平台向用户通知识别结果
+     * @param key_words 待识别关键词 多个关键词之间用“|”分隔，每个词长度不低于两个字，上限500个词
+     * @return String
+     * @throws Exception
+     */
+    public String aaiDetectkeywordBySpeech(String speechfilePath,int format,String callback_url,String key_words,Integer rate) throws Exception{
+     	byte[] speech = FileUtil.readFileByBytes(speechfilePath);
+        return aaiDetectkeywordBySpeech(speech,format,callback_url,key_words,rate);
+    }
+    /**
+     * 关键词检索 	
+     * 上传长音频，提供回调接口，异步获取识别结果
+     * @param speech_url 语音文件的网络路径
+     * @param format 语音压缩格式编码
+     * @param callback_url 用户回调url，需用户提供，用于平台向用户通知识别结果
+     * @param key_words 待识别关键词 多个关键词之间用“|”分隔，每个词长度不低于两个字，上限500个词
+     * @param rate 采样频率 默认只支持8000 
+     * @return String
+     * @throws Exception
+     */
+    public String aaiDetectkeywordBySpeechURL(String speech_url,int format,String callback_url,String key_words,Integer rate) throws Exception{
+     	String result ="";
+        TAipRequest request = new TAipRequest();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("format", Integer.toString(format));
+        request.addBody("callback_url",callback_url);
+        request.addBody("key_words", key_words);
+        request.addBody("speech_url", speech_url);
+        request.addBody("rate",Integer.toString(rate));
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+	    request.setUri(SpeechConsts.SPEECH_AAI_DETECTKEYWORD);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
+        return result;
+    }
 }
