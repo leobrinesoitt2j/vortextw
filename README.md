@@ -1,5 +1,5 @@
-[![Version](https://img.shields.io/badge/version-4.3.2-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
-[![Download](https://img.shields.io/badge/download-v4.3.2jar-brightgreen.svg)](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=cn.xsshome&a=taip&v=4.3.2&e=jar)
+[![Version](https://img.shields.io/badge/version-4.3.3-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
+[![Download](https://img.shields.io/badge/download-v4.3.3jar-brightgreen.svg)](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=cn.xsshome&a=taip&v=4.3.3&e=jar)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![JDK 1.7](https://img.shields.io/badge/JDK-1.7-green.svg "JDK 1.7")]()
 [![WiKi](https://img.shields.io/readthedocs/pip.svg)](https://apidoc.gitee.com/xshuai/taip/)
@@ -61,20 +61,20 @@ cn.xsshome.taip
 <dependency>
   <groupId>cn.xsshome</groupId>
   <artifactId>taip</artifactId>
-  <version>4.3.2</version>
+  <version>4.3.3</version>
 </dependency>
 ```
 ### Gradle
 ```
-compile 'cn.xsshome:taip:4.3.2'
+compile 'cn.xsshome:taip:4.3.3'
 ```
 
 ### 非Maven项目
 
 点击以下任一链接，下载`taip-x.x.x.jar`即可：
 
-- [Maven中央库1](http://central.maven.org/maven2/cn/xsshome/taip/4.3.2/taip-4.3.2.jar)
-- [Maven中央库2](http://repo1.maven.org/maven2/cn/xsshome/taip/4.3.2/taip-4.3.2.jar)
+- [Maven中央库1](http://central.maven.org/maven2/cn/xsshome/taip/4.3.2/taip-4.3.3.jar)
+- [Maven中央库2](http://repo1.maven.org/maven2/cn/xsshome/taip/4.3.2/taip-4.3.3.jar)
 
 -------------------------------------------------------------------------------
 ## 使用示例代码
@@ -342,8 +342,11 @@ public class Sample{
     public static void main2(String[] args) throws Exception {
         TAipVision aipVision = new TAipVision（APP_ID, APP_KEY);
         String filePath = "G:/tt.jpg";
-        String result = aipVision.imageTerrorism(filePath);//暴恐图片
+        String imageUrl = "https://www.xsshome.cn/xxx.jpg";//图片的网络路径地址
+        String result = aipVision.imageTerrorism(imageUrl);//暴恐图片
+        String result = aipVision.imageTerrorismByURL(filePath);//暴恐图片ByURL
         String result = aipVision.visionPorn(filePath);//智能鉴黄
+        String result = aipVision.visionPornByURL(imageUrl);//智能鉴黄ByURL
         System.out.println(result);
     }
 }
