@@ -128,4 +128,29 @@ public class TAipVision extends BaseClient{
     	byte[] image = FileUtil.readFileByBytes(filePath);
     	return visionPorn(image);
     }
+    
+    /**
+     * 音频鉴黄	
+     * 识别一段音频是否为色情音频. 	
+     * @param speech_id - 语音唯一标识,同一应用内每段语音流标识需唯一
+     * @param speech_url - 音频URL，建议音频时长不超过3分钟
+     * @return String
+	 * @throws Exception 
+     */
+    public String aaiEvilAudio(String speech_id,String speech_url) throws Exception{
+    	String result ="";
+        TAipRequest request = new TAipRequest();
+		String time_stamp = System.currentTimeMillis()/1000+"";
+		request.addBody("app_id", app_id);
+		request.addBody("time_stamp", time_stamp);
+		request.addBody("nonce_str", RandomNonceStrUtil.getRandomString());
+		request.addBody("speech_id", speech_id);
+        request.addBody("speech_url", speech_url);
+        String sign = TencentAISignSort.getSignature(request.getBody(),app_key);
+		request.addBody("sign",sign);
+        request.setUri(VisionConsts.AAI_EVILAUDIO);
+        request.setBodyFormat(TAipEBodyFormat.FORM_KV);
+        result = requestServer(request);
+        return result;
+    }
 }
