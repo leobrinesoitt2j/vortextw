@@ -1,5 +1,5 @@
-[![Version](https://img.shields.io/badge/version-4.3.4-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
-[![Download](https://img.shields.io/badge/download-v4.3.4jar-brightgreen.svg)](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=cn.xsshome&a=taip&v=4.3.4&e=jar)
+[![Version](https://img.shields.io/badge/version-4.3.5-brightgreen.svg)](http://mvnrepository.com/search?q=taip)
+[![Download](https://img.shields.io/badge/download-v4.3.5jar-brightgreen.svg)](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=cn.xsshome&a=taip&v=4.3.5&e=jar)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![JDK 1.7](https://img.shields.io/badge/JDK-1.7-green.svg "JDK 1.7")]()
 [![WiKi](https://img.shields.io/readthedocs/pip.svg)](https://apidoc.gitee.com/xshuai/taip/)
@@ -61,20 +61,20 @@ cn.xsshome.taip
 <dependency>
   <groupId>cn.xsshome</groupId>
   <artifactId>taip</artifactId>
-  <version>4.3.4</version>
+  <version>4.3.5</version>
 </dependency>
 ```
 ### Gradle
 ```
-compile 'cn.xsshome:taip:4.3.4'
+compile 'cn.xsshome:taip:4.3.5'
 ```
 
 ### 非Maven项目
 
 点击以下任一链接，下载`taip-x.x.x.jar`即可：
 
-- [Maven中央库1](http://central.maven.org/maven2/cn/xsshome/taip/4.3.4/taip-4.3.4.jar)
-- [Maven中央库2](http://repo1.maven.org/maven2/cn/xsshome/taip/4.3.4/taip-4.3.4.jar)
+- [Maven中央库1](http://central.maven.org/maven2/cn/xsshome/taip/4.3.5/taip-4.3.5.jar)
+- [Maven中央库2](http://repo1.maven.org/maven2/cn/xsshome/taip/4.3.5/taip-4.3.5.jar)
 
 -------------------------------------------------------------------------------
 ## 使用示例代码

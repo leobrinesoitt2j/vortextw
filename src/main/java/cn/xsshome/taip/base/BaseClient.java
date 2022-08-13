@@ -1,15 +1,17 @@
 package cn.xsshome.taip.base;
 
+import cn.xsshome.taip.error.ErrorTAip;
 import cn.xsshome.taip.http.TAipClientConfiguration;
 import cn.xsshome.taip.http.TAipHttpClient;
 import cn.xsshome.taip.http.TAipRequest;
 import cn.xsshome.taip.http.TAipResponse;
+
 import java.net.Proxy;
 
 /**
  * 基础抽象类
  * @author 小帅丶
- * @version 0.0.1
+ * @version 4.3.5
  */
 public abstract  class BaseClient {
 	protected String app_id;//控制台查看应用对应的AppID
@@ -28,10 +30,18 @@ public abstract  class BaseClient {
      */
     protected String requestServer(TAipRequest request) {
         // 请求API
-    	request.setConfig(config);
-        TAipResponse response = TAipHttpClient.post(request);
-        String resData = response.getBodyStr();
-        return resData;
+		request.setConfig(config);
+		long startTime = System.currentTimeMillis();
+		TAipResponse response = TAipHttpClient.post(request);
+		long endTime = System.currentTimeMillis();
+		long timeStamp = endTime - startTime;
+		int resStatus = response.getStatus();
+		if (resStatus != 200) {
+			return ErrorTAip.APISERVICE_ERROR.toJsonResult("接口服务异常  耗时(毫秒):"+timeStamp+" HTTP STATUS:"+resStatus +" 请联系腾讯AI的官方人员");
+		} else {
+			String resData = response.getBodyStr();
+			return resData;
+		}
     }
     /**
     *
