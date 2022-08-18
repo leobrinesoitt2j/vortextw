@@ -1,0 +1,49 @@
+Base64转图片工具类-Java
+===
+
+### 方法一 
+
+JDK 1.8以上  如果低于1.8 java.util.Base64 改用import sun.misc.BASE64Decoder;
+
+以下代码仅供参考。如果觉得low 就low吧。
+
+```
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Base64;
+import java.util.Base64.Decoder;
+
+public class GenerateImageFile {
+	/**
+	 * base64字符串转化成图片
+	 * @param imgStr 接口返回的图片base64数据
+	 * @param imgFilePath 即将要保存的图片的本地路径包含文件名称和格式 例如:F:/generateimage.jpg
+	 * @return
+	 */
+	public static boolean GenerateImage(String imgStr, String imgFilePath) { // 对字节数组字符串进行Base64解码并生成图片
+		if (imgStr == null) // 图像数据为空
+			return false;
+		Decoder decoder = Base64.getDecoder();
+		try {
+			// Base64解码
+			byte[] b = decoder.decode(imgStr);
+			for (int i = 0; i < b.length; ++i) {
+				if (b[i] < 0) {// 调整异常数据
+					b[i] += 256;
+				}
+			}
+			// 生成jpeg图片
+			OutputStream out = new FileOutputStream(imgFilePath);// 新生成的图片
+			out.write(b);
+			out.flush();
+			out.close();
+			System.out.println("保存成功" + imgFilePath);
+			return true;
+		} catch (Exception e) {
+			System.out.println("出错了" + e.getMessage());
+			return false;
+		}
+	}
+}
+```
+
