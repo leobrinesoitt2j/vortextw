@@ -1,0 +1,62 @@
+安装
+===
+
+> ###注意
+> ### 只支持JDK7+，
+> ### 对应Android平台没有测试过兼容性(但是部分开发者在Android使用是OK的)
+
+### 项目结构
+
+       cn.xsshome.taip
+       ├── base                                //基类
+       ├── http                                //Http通信相关类
+       ├── error                                //SDK错误类
+       ├── imageclassify
+       │       └── TAipImageClassify           //TAipImageClassify类
+       ├── sign                                //签名公用类
+       ├── ocr
+       │       └── TAipOcr                      //TAipOcr类
+       ├── speech
+       │       └── TAipSpeech                   //TAipSpeech类
+       ├── face
+       │       └── TAipFace                   //TAipFace类
+       ├── ptu
+       │       └── TAipPtu                   //TAipPtu类
+       ├── nlp
+       │       └── TAipNlp                   //TAipNlp类
+       ├── vision
+       │       └── TAipVision                   //TAipVision类
+       └── util                                //工具类
+
+### 非Maven项目
+
+可以从[http://mvnrepository.com/](http://mvnrepository.com/)搜索**taip**找到项目，点击对应版本，下面是相应的Jar包，导入即可使用。
+
+直通车:[http://mvnrepository.com/search?q=taip](http://mvnrepository.com/search?q=taip)
+
+Jar下载直通车1:[taip-4.3.5.jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=cn.xsshome&a=taip&v=4.3.5&e=jar)
+
+Jar下载直通车2:[taip-4.3.5.jar](http://repo1.maven.org/maven2/cn/xsshome/taip/4.3.5/taip-4.3.5.jar)
+
+下载后,请自行Add到自己的项目即可
+
+### 通过Maven引入项目
+
+
+```
+<dependency>
+    <groupId>cn.xsshome</groupId>
+    <artifactId>taip</artifactId>
+    <version>4.3.5</version>
+</dependency>
+
+```
+
+### 通过Gradle引入项目
+
+
+
+```
+compile 'cn.xsshome:taip:4.3.5'
+```
+
