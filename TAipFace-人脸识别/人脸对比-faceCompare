@@ -1,0 +1,23 @@
+人脸对比-faceCompare
+===
+
+> ###返回内容介绍：
+> https://ai.qq.com/doc/facecompare.shtml
+
+### 使用
+
+
+```
+public static String sample(TAipFace client) throws Exception {
+    //参数为本地图片路径
+  String imagePathA = "./User/xiaoshaui/face1.jpg";
+  String imagePathB = "./User/xiaoshaui/face2.jpg";
+  String result = client.faceCompare(imagePathA,imagePathB);
+  //参数为本地图片二进制数组
+  byte[] imageA = FileUtil.readFileByBytes(imagePatA);
+  byte[] imageB = FileUtil.readFileByBytes(imagePathB);
+  String result = client.faceCompare(imageA,imageB);
+  return result;
+}
+```
+
