@@ -1,0 +1,27 @@
+个体创建接口-faceNewperson
+===
+
+> ###返回内容介绍：
+> https://ai.qq.com/doc/newperson.shtml
+
+### 使用
+
+
+```
+public static String sample(TAipFace client) throws Exception {
+  String group_ids = "test001";//组id 可以是多个 eg:group01|group02 自己命名即可
+  String person_id = "20181001001";//指定的个体id 自己命名即可
+  String person_name = "小帅";//个体名字
+  String tag= "个体创建";//备注信息
+  //参数为本地图片路径
+  String imagePath = "./User/xiaoshaui/face.jpg";
+  String result = client.faceNewperson(filePath,group_ids ,person_id,person_name  ,tag);//个体创建 全部参数
+  String result = client.faceNewperson(filePath,group_ids ,person_id,person_name);//个体创建 必填参数
+  //参数为本地图片二进制数组
+  byte[] image = FileUtil.readFileByBytes(imagePath);
+  String result = client.faceNewperson(image ,group_ids ,person_id ,person_name ,tag);//个体创建  全部参数
+  String result = client.faceNewperson(image ,group_ids ,person_id,person_name);//个体创建 必填参数
+  return result;
+}
+```
+
