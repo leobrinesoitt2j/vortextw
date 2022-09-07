@@ -1,0 +1,18 @@
+删除个体-faceDelperson
+===
+
+> ###返回内容介绍：
+> https://ai.qq.com/doc/delperson.shtml
+
+### 使用
+
+
+```
+public static String sample(TAipFace client) throws Exception {
+  //参数为person_id 
+  String person_id = "20181001001";//需要删除的个体（Person）ID
+  String result = client.faceDelperson(person_id );//删除个体
+  return result;
+}
+```
+
