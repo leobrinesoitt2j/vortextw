@@ -1,0 +1,16 @@
+获取组列表-getGroupIds
+===
+
+> ###返回内容介绍：
+> https://ai.qq.com/doc/getgroupids.shtml
+
+### 使用
+获取自己应用下的组列表
+
+```
+public static String sample(TAipFace client) throws Exception {
+  String result = client.getGroupIds();//获取组列表
+  return result;
+}
+```
+
