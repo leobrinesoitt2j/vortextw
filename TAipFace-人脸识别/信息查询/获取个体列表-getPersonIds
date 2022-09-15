@@ -1,0 +1,17 @@
+获取个体列表-getPersonIds
+===
+
+> ###返回内容介绍：
+> https://ai.qq.com/doc/getpersonids.shtml
+
+### 使用
+ 获取一个组（Group）中的所有个体（Person）ID
+
+```
+public static String sample(TAipFace client) throws Exception {
+ String group_id = "20181001001";//group_id 组（Group）ID
+ String result = client.getPersonIds(group_id);//获取个体列表
+  return result;
+}
+```
+
