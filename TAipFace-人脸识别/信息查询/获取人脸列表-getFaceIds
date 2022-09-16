@@ -1,0 +1,17 @@
+获取人脸列表-getFaceIds
+===
+
+> ###返回内容介绍：
+> https://ai.qq.com/doc/getpersonids.shtml
+
+### 使用
+根据个体（Person）ID 获取人脸（Face）ID列表
+
+```
+public static String sample(TAipFace client) throws Exception {
+ String person_id= "20181001001";//person_id 个体（Person）ID
+ String result = client.getFaceIds(person_id);//获取人脸列表
+  return result;
+}
+```
+
