@@ -1,0 +1,30 @@
+车牌识别
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/plateocr.shtml
+
+### 车牌识别基于本地图片-handWritingOcrByImage
+
+```
+public static String sample(TAipOcr client) throws Exception {
+      //参数为本地图片路径
+  String imagePath = "./User/xiaoshaui/mp.jpg";
+  String result = client.handWritingOcrByImage("./idcard.jpg");
+  //参数为本地图片二进制数组
+  byte[] image = FileUtil.readFileByBytes(imagePath);
+   String result = client.handWritingOcrByImage(image);
+  return result;
+}
+```
+
+### 车牌识别基于网络图片-handWritingOcrByUrl
+
+```
+public static String sample(TAipOcr client) throws Exception {
+      //参数为网络图片URL路径
+   String result = client.handWritingOcrByUrl("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1193229681,1639380780&amp;fm=27&amp;gp=0.jpg");
+   return result;
+}
+```
+
