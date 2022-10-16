@@ -1,0 +1,34 @@
+ 概述&amp;初始化TAipPtu 
+===
+
+AipPtu是调用腾讯AI中图片特效的Java客户端，为调用腾讯AI中图片特效功能的开发人员提供了一系列的交互方法。
+官方文档：[https://ai.qq.com/doc/facecosmetic.shtml](https://ai.qq.com/doc/facecosmetic.shtml)
+
+
+### 模块接入接口能力
+
+接口名称 	 | 接口能力简要描述 | 
+---|---|
+人脸美妆 | 给定图片和美妆编码，对原图进行人脸美妆特效处理 | 
+人脸变妆 | 给定图片和变妆编码，对原图进行人脸变妆特效处理 | 
+图片滤镜（天天P图）  | 对原图进行滤镜特效处理，更适合人物图片 | 
+图片滤镜（AI Lab）  | 对原图进行滤镜特效处理，更适合风景图片 | 
+人脸融合 | 给定图片和融合模板，对原图进行人脸融合特效处理 | 
+大头贴 | 给定图片和大头贴编码，对原图进行大头贴特效处理 | 
+颜龄检测 | 给定图片，对原图进行人脸颜龄检测处理 | 
+
+### 初始化一个TAipPtu
+用户可以参考如下代码新建一个TAipPtu,初始化完成后建议**单例使用**
+
+```
+public class Sample {
+  //设置AppID/AppKey
+    public static final String AppID = "你的AppID";
+    public static final String AppKey = "你的AppKey";
+  public static void main(String[] args) {
+    // 初始化一个TAipPtu 
+    TAipPtu client = new TAipPtu(AppID,AppKey);
+  }
+}
+```
+
