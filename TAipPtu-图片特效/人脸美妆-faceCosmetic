@@ -1,0 +1,20 @@
+人脸美妆-faceCosmetic
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/facecosmetic.shtml
+
+### 使用
+
+```
+public static String sample(TAipPtu client) throws Exception {
+  // 参数为本地图片路径 美妆编码
+  String imagePath = "./User/xiaoshaui/kj.jpg";
+  String result = client.faceCosmetic(imagePath,1);
+  // 参数为本地图片二进制数组 美妆编码
+  byte[] image = FileUtil.readFileByBytes(imagePath);
+  String result = client.faceCosmetic(image,1);
+  return result;
+}
+```
+
