@@ -1,0 +1,19 @@
+人脸变妆-faceDecoration
+===
+
+> https://ai.qq.com/doc/facedecoration.shtml
+
+### 使用
+
+```
+public static String sample(TAipPtu client) throws Exception {
+	// 参数为本地图片路径 变妆编码
+	String imagePath = "./User/xiaoshaui/kj.jpg";
+	String result = client.faceDecoration(imagePath,1);
+	// 参数为本地图片二进制数组 变妆编码
+	byte[] image = FileUtil.readFileByBytes(imagePath);
+	String result = client.faceDecoration(image,1);
+	return result;
+}
+```
+
