@@ -1,0 +1,20 @@
+图片滤镜（AI Lab）-visionImgfilter
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/ptuimgfilter.shtml
+
+### 使用
+
+```
+public static String sample(TAipPtu client) throws Exception {
+  // 参数为本地图片路径 滤镜特效编码 一次请求ID
+  String imagePath = "./User/xiaoshaui/kj.jpg";
+  String result = client.visionImgfilter(imagePath,1,String.valueOf(new Date().getTime()));
+  // 参数为本地图片二进制数组 滤镜特效编码  一次请求ID
+  byte[] image = FileUtil.readFileByBytes(imagePath);
+  String result = client.visionImgfilter(image,1,String.valueOf(new Date().getTime()));
+  return result;
+}
+```
+
