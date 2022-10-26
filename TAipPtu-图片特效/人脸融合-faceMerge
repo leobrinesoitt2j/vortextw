@@ -1,0 +1,20 @@
+人脸融合-faceMerge
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/facemerge.shtml
+
+### 使用
+
+```
+public static String sample(TAipPtu client) throws Exception {
+	// 参数为本地图片路径   素材模板编码
+	String imagePath = "./User/xiaoshaui/kj.jpg";
+	String result = client.faceMerge(imagePath,1);
+	// 参数为本地图片二进制数组  素材模板编码
+	byte[] image = FileUtil.readFileByBytes(imagePath);
+	String result = client.faceMerge(image,1);
+	return result;
+}
+```
+
