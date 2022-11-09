@@ -1,0 +1,48 @@
+花草/车辆识别
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/imgidentify.shtml
+
+### 花草/车辆识别使用-visionImgidentify
+
+```
+public static String sample(TAipImageClassify client) throws Exception {
+  // 参数为本地图片路径 识别场景，1-车辆识别，2-花草识别
+  String imagePath = "./User/xiaoshaui/kj.jpg";
+  String result = client.visionImgidentify(imagePath,1);
+  // 参数为本地图片二进制数组 识别场景，1-车辆识别，2-花草识别
+  byte[] image = FileUtil.readFileByBytes(imagePath);
+  String result = client.visionImgidentify(image,1);
+  return result;
+}
+```
+
+### 花草识别使用-flowersAndPlant
+
+```
+public static String sample(TAipImageClassify client) throws Exception {
+  // 参数为本地图片路径
+  String imagePath = "./User/xiaoshaui/kj.jpg";
+  String result = client.flowersAndPlant(imagePath);
+  // 参数为本地图片二进制数组
+  byte[] image = FileUtil.readFileByBytes(imagePath);
+  String result = client.flowersAndPlant(image);
+  return result;
+}
+```
+
+### 车辆识别使用-vehicle
+
+```
+public static String sample(TAipImageClassify client) throws Exception {
+  // 参数为本地图片路径
+  String imagePath = "./User/xiaoshaui/kj.jpg";
+  String result = client.vehicle(imagePath);
+  // 参数为本地图片二进制数组
+  byte[] image = FileUtil.readFileByBytes(imagePath);
+  String result = client.vehicle(image);
+  return result;
+}
+```
+
