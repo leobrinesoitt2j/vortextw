@@ -1,0 +1,20 @@
+模糊图片检测-imageFuzzy
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/imagefuzzy.shtml
+
+### 使用
+
+```
+public static String sample(TAipImageClassify client) throws Exception {
+  // 参数为本地图片路径
+  String imagePath = "./User/xiaoshaui/kj.jpg";
+  String result = client.imageFuzzy(imagePath);
+  // 参数为本地图片二进制数组
+  byte[] image = FileUtil.readFileByBytes(imagePath);
+  String result = client.imageFuzzy(image);
+  return result;
+}
+```
+
