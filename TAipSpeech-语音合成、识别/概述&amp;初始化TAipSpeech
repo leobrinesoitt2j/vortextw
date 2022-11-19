@@ -1,0 +1,32 @@
+概述&amp;初始化TAipSpeech
+===
+
+TAipSpeech是调用腾讯AI中智能语音的Java客户端，为调用腾讯AI中智能语音功能的开发人员提供了一系列的交互方法。 官方文档：https://ai.qq.com/doc/aaitts.shtml
+
+### 模块接入接口能力
+
+模块分类 		 | 接口名称  | 接口能力简要描述 | 
+---|---|---|
+语音识别 | 语音识别-echo版 | 对音频进行语音识别，并返回语音的文字内容 | 
+ | 语音识别-流式版（AI Lab） | 对音频进行流式识别，轻松实现边录音边识别 | 
+ | 语音识别-流式版(WeChat AI) | 对音频进行流式识别，轻松实现边录音边识别 | 
+长语音识别 | 长语音识别 | 上传长音频，提供回调接口，异步获取识别结果 | 
+关键词检索 | 关键词检索 | 上传长音频，提供回调接口，异步获取识别结果 | 
+语音合成 | 语音合成（AI Lab） | 将文字转换为语音，返回文字的语音数据 | 
+ | 语音合成（优图 | 将文字转换为语音，返回文字的语音数据 | 
+
+### 初始化一个TAipSpeech
+
+```
+public class Sample {
+    //设置AppID/AppKey
+    public static final String AppID = "你的AppID";
+    public static final String AppKey = "你的AppKey";
+
+    public static void main(String[] args) {
+        // 初始化一个TAipNlp
+        TAipSpeech client = new TAipSpeech(AppID, AppKey);
+    }
+}
+```
+
