@@ -1,0 +1,181 @@
+关键词检索-aaiDetectkeyword*
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/detectword.shtml
+
+### 使用
+
+```
+public static String sample(TAipSpeech client) throws Exception {
+ //参数内容
+  String filePath ="G:/8k.pcm";//本地文件路径
+  String urlPath ="http://www.xsshome.cn/8.pcm";//网络文件路径
+  byte[] audio = FileUtil.readFileByBytes(filePath);
+  int format = 1;//语音压缩格式编码 PCM-1 WAV-2 AMR-3 SILK-4
+  int rate = 8000;//采样频率 默认只支持8000 
+  String callback_url = "http://www.xsshome.cn/txnotifydetectword";//用户回调url，需用户提供，用于平台向用户通知识别结果 需要是公网哦
+  String key_words = "北京";//待识别关键词 多个关键词之间用“|”分隔，每个词长度不低于两个字，上限500个词
+  String result = client.aaiDetectkeywordBySpeech(filePath,format ,callback_url ,key_words ,rate);//关键词检索基于  本地语音文件
+  String result = client.aaiDetectkeywordBySpeech(audio ,format ,callback_url , key_words ,rate);//关键词检索基于   本地语音byte数据
+  String result = client.aaiDet0ectkeywordBySpeechURL(urlPath,format ,callback_url ,key_words ,rate );//关键词检索基于语音URL文件
+  return result;
+}
+```
+
+### 回调方法(Java版本)
+
+使用SpringMVC框架.
+推荐使用fastjson库对json处理
+```
+<dependency>
+	<groupId>com.alibaba</groupId>
+	<artifactId>fastjson</artifactId>
+	<version>1.2.35</version>
+</dependency>
+```
+
+DetectWordNotifyController.java
+
+```
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.xs.tencent.aai.bean.TXDetectWordNotifyBean;
+import com.xs.tencent.aai.bean.TXResponse;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+/**
+ * 关键词检索识别回调方法
+ * @author 小帅丶
+ *
+ */
+@Controller
+@Scope("prototype") 
+public class DetectWordNotifyController {
+  /**
+   * 关键词检索识别回调方法
+   * @param request
+   * @param response
+   * @throws IOException
+   */
+  @RequestMapping(value="/txnotifydetectword",method={RequestMethod.POST,RequestMethod.GET},produces="text/html;charset=UTF-8")
+  @ResponseBody
+  public String TxNotifyDetectWord(HttpServletRequest request,HttpServletResponse response) throws Exception {
+    TXResponse txResponse = null;
+    InputStream inputStream;
+    String result = "";
+    String response_result = "";
+    response.setContentType("text/xml;charset=UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    try {
+      inputStream = request.getInputStream();
+      String s = null;
+      BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+      while ((s = in.readLine()) != null) {
+        result = result + s;
+      }
+      System.out.println("tx回调返回的数据==="+result);
+      TXDetectWordNotifyBean notify = JSONObject.toJavaObject(JSON.parseObject(result), TXDetectWordNotifyBean.class);
+      if(notify.getRet()==0){
+        txResponse = new TXResponse();
+        txResponse.setMsg("ok");
+        txResponse.setRet(0);
+        result = JSONObject.toJSONString(txResponse);
+        System.out.println("返回的数据==="+result);
+        return result;
+      }else{
+        txResponse = new TXResponse();
+        txResponse.setMsg("fail");
+        txResponse.setRet(1);
+        result = JSONObject.toJSONString(txResponse);
+        System.out.println("返回的数据==="+result);
+        return result;
+      }
+    } catch (Exception e) {
+      System.out.println("====TX回调出错了"+e.getMessage()+"=========响应结果"+response_result);
+      txResponse = new TXResponse();
+      txResponse.setMsg("error");
+      txResponse.setRet(5);
+      result = JSONObject.toJSONString(txResponse);
+      System.out.println("返回的数据==="+result);
+      return result;
+    }
+  }
+}
+
+```
+
+TXDetectWordNotifyBean.java
+
+```
+/**
+ * @Company 有点小帅科技公司  
+ * @department CTO组
+ * @author 小帅丶
+ */
+import java.util.List;
+/**
+ * @author 小帅丶
+ * @类名称  TXDetectWordNotifyBean
+ * @remark  set/get方法省略
+ * @date  2018-9-4
+ */
+public class TXDetectWordNotifyBean {
+  public int ret;//0表示成功，非0表示出错
+  private String msg;//返回信息；ret非0时表示出错时错误原因
+  private Data data;//结果数据；ret为0时有意义
+  
+  public static class Data{
+    private String task_id;//   本次识别任务ID
+    private int is_end;//是否结束
+    private int seg_index;//识别语音片段
+    private int bps;//语音片段开始时间（单位毫秒）
+    private int eps;//语音片段结束时间（单位毫秒）
+    private Res res;//关键词
+    
+  }
+  public static class Res{
+    private int key_words_size;//关键词数量
+    private List<KeyWords> key_words;//关键词列表
+    
+  }
+  public static class KeyWords{
+    private String key_word;//关键词
+    private float score;//可靠性得分
+    private float mbtm;//当前关键词相对于该语音片段的开始时间（单位毫秒）
+    private float metm;//当前关键词相对于该语音片段的结束时间（单位毫秒）
+    
+}
+
+```
+
+TXResponse.java
+
+```
+/**
+ * @author 小帅丶
+ * @类名称  TXNotify
+ * @remark 给接口响应接收数据的对象
+ * @date  2018-1-15
+ */
+public class TXResponse {
+  //0表示成功，非0表示出错
+  public int ret;
+  //返回信息；ret非0时表示出错时错误原因
+  public String msg;
+        //省略set/get
+}
+```
+
