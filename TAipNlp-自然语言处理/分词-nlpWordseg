@@ -1,0 +1,17 @@
+分词-nlpWordseg
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/nlpbase.shtml
+
+### 使用
+
+```
+public static String sample(TAipNlp client) throws Exception {
+ //参数内容
+  String text = "小帅开发者";
+  String result = client.nlpWordseg(text);//分词
+  return result;
+}
+```
+
