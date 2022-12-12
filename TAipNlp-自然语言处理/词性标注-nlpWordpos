@@ -1,0 +1,17 @@
+词性标注-nlpWordpos
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/nlpbase.shtml
+
+### 使用
+
+```
+public static String sample(TAipNlp client) throws Exception {
+ //参数内容
+  String text = "小帅是一个热心的开发者";
+  String result = client.nlpWordpos(text);//词性标注
+  return result;
+}
+```
+
