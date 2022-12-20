@@ -1,0 +1,19 @@
+基础闲聊-nlpTextchat
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/nlpchat.shtml
+
+### 使用
+
+```
+public static String sample(TAipNlp client) throws Exception {
+  //参数内容
+  String text = "北京天气";
+  String session = new Date().getTime()/1000+"";//会话标识（应用内唯一）
+  String result = client.nlpTextchat(text);//基础闲聊
+  String result = client.nlpTextchat(session,"北京天气");//基础闲聊     
+  return result;
+}
+```
+
