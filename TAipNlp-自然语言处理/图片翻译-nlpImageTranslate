@@ -1,0 +1,39 @@
+图片翻译-nlpImageTranslate
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/imagetranslate.shtml
+
+### 使用
+
+图片本地路径识别示例代码
+
+```
+public static String sample(TAipNlp client) throws Exception {
+ //参数内容
+  String filePath = "G:/tt.jpg";//待翻译的本地图片路径
+  String session = new Date().getTime()/1000+"";//一次请求ID
+  String scene = "doc";//识别类型（word-单词识别，doc-文档识别）
+  String source = "zh";//源语言缩写
+  String target= "en";//目标语言缩写
+  String result = client.nlpImageTranslate(filePath,session,scene,source,target);//图片翻译
+  return result;
+}
+```
+
+图片byte数组数据识别示例代码
+
+```
+public static String sample(TAipNlp client) throws Exception {
+ //参数内容
+  String filePath = "G:/tt.jpg";//待翻译的本地图片路径
+  byte[] image = FileUtil.readFileByBytes(filePath);//图片数据转byte数组
+  String session = new Date().getTime()/1000+"";//一次请求ID
+  String scene = "doc";//识别类型（word-单词识别，doc-文档识别）
+  String source = "zh";//源语言缩写
+  String target= "en";//目标语言缩写
+  String result = client.nlpImageTranslate(image ,session,scene,source,target);//图片翻译
+  return result;
+}
+```
+
