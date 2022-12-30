@@ -1,0 +1,33 @@
+语种识别-nlpTextDetect
+===
+
+> ###返回内容介绍
+> https://ai.qq.com/doc/textdetect.shtml
+
+### 使用
+
+语种识别必填参数示例代码
+
+```
+public static String sample(TAipNlp client) throws Exception {
+ //参数内容
+  String text = "こんにちは";//待识别文本
+  int force = 0;//是否强制从候选语言中选择（只对二选一有效）
+  String result = client.nlpTextDetect(text,force);//语种识别
+  return result;
+}
+```
+
+语种识别所有参数示例代码
+
+```
+public static String sample(TAipNlp client) throws Exception {
+ //参数内容
+  String text = "こんにちは";//待识别文本
+  String candidate_langs = "zh";//备选语言缩写
+  int force = 0;//是否强制从候选语言中选择（只对二选一有效）
+  String result = client.nlpTextDetect(text,candidate_langs ,force);//语种识别
+  return result;
+}
+```
+
