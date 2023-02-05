@@ -12,6 +12,11 @@ APPID APPKEY 是腾讯AI创建应用后得到。请移步腾讯AI官网获取哦
 QQ:783021975
 
 
+### 关注码小帅获取最新功能更新
+
+![码小帅](https://images.gitee.com/uploads/images/2021/0518/164321_b70506da_131538.jpeg "码小帅.jpg")
+
+
 TAip Java SDK目录结构
 ```
 cn.xsshome.taip
